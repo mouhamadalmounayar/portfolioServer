@@ -11,12 +11,8 @@ const addProjectRouter = require("./routes/addProject")
 app.use(express.json())
 app.use(express.urlencoded({extended : true}))
 
-const corsOptions = {
-    origin: 'http://localhost:4200',
-    optionsSuccessStatus: 200,
-  };
   
-app.use(cors(corsOptions));
+app.use(cors());
 
 const transport = nodemailer.createTransport({
     host : 'smtp.outlook.com',
@@ -35,6 +31,7 @@ const transport = nodemailer.createTransport({
 app.post('/message' , (req, res) => {
     let html = `
     <p> ${req.body.message} </p>
+    <p>${req.body.email}</p>
     `
     transport.sendMail({
         from : process.env.EMAIL, 
@@ -47,8 +44,8 @@ app.post('/message' , (req, res) => {
     res.json({'message' : 'Message sent successfuly'})
 })
 
-app.use('/api/v1' , loginRouter)
-app.use('/api/v1' , addProjectRouter)
+app.use('' , loginRouter)
+app.use('' , addProjectRouter)
 
 app.listen(process.env.PORT || 3000)
 console.log(`Listening on port ${process.env.PORT}`)
