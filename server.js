@@ -47,5 +47,5 @@ app.post('/message' , (req, res) => {
 app.use('' , loginRouter)
 app.use('' , addProjectRouter)
 
-app.listen(process.env.PORT || 3000)
-console.log(`Listening on port ${process.env.PORT}`)
+app.listen( 3000)
+console.log(`Listening on port 3000`)
